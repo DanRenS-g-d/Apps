@@ -48,3 +48,11 @@ requirements.txt             → Dependencias
 
 - Los datos se generan automáticamente.
 - El archivo `unified_supermarket_data.xlsx` no se incluye en el repo, se crea al ejecutar la app.
+- Ollama es una opción avanzada para refinar las consultas semánticas, pero no es imprescindible. Si no lo usas, la búsqueda se realizará solo con SentenceTransformers.
+
+- ##❓ Troubleshooting
+Error al ejecutar los scrapers: Asegúrate de que tienes configurados los navegadores y los drivers necesarios para Selenium (como ChromeDriver o GeckoDriver) y que están correctamente en tu PATH.
+
+Problemas con las dependencias: Si ves un error relacionado con las dependencias, asegúrate de estar usando una versión compatible de Python (preferiblemente Python 3.8+).
+
+Resultados incorrectos: Si los resultados no son lo que esperabas, verifica que la lista de productos que ingresaste esté bien escrita y que los scrapers estén extrayendo los datos correctamente.
