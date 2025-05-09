@@ -10,12 +10,24 @@ from typing import List
 
 # Constants
 EMBEDDING_MODEL = 'sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2'
-EXCEL_PATH = r'C:\Users\User\Desktop\Tesis\Scripts de Python Olimpica\unified_supermarket_data.xlsx'
-OLLAMA_PATH = r"C:\Users\User\AppData\Local\Programs\Ollama\ollama.exe"
+EXCEL_PATH = os.getenv("EXCEL_PATH", "unified_supermarket_data.xlsx")
+OLLAMA_PATH = os.getenv("OLLAMA_PATH", "ollama")
 OLLAMA_MODEL = "mistral:instruct"
 SIMILARITY_THRESHOLD = 0.35
 TOP_K_RESULTS = 50
 INPUT_TXT = "productos.txt"
+
+def check_ollama_model_installed(model_name: str) -> bool:
+    try:
+        result = subprocess.run([OLLAMA_PATH, "list"], capture_output=True, text=True, timeout=10)
+        return model_name.split(":")[0] in result.stdout
+    except Exception:
+        return False
+
+# Verificar modelo Ollama
+if not check_ollama_model_installed("mistral"):
+    print(f"❌ El modelo '{OLLAMA_MODEL}' no está instalado en Ollama. Usa 'ollama pull mistral'.")
+    sys.exit(1)
 
 def load_data() -> pd.DataFrame:
     print("📂 Loading data...")
@@ -168,3 +180,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
