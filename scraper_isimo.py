@@ -4,19 +4,20 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 import pandas as pd
 import time
 
 # Configuración del navegador
 options = Options()
-options.add_argument("--headless=new")  # Ejecutar en modo sin interfaz gráfica
+options.add_argument("--headless")  # Ejecutar en modo sin interfaz gráfica
 options.add_argument("--start-maximized")
 options.add_argument("--disable-blink-features=AutomationControlled")
 options.add_argument("--ignore-certificate-errors")
 options.add_argument("--ignore-ssl-errors")
 
-# Ruta al chromedriver CORREGIDA
-service = Service("C:\\Users\\User\\Desktop\\Tesis\\Scripts de Python Olimpica\\chromedriver-win64\\chromedriver.exe")
+# Usando webdriver_manager para gestionar el chromedriver automáticamente
+service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=options)
 
 # URL de la página
