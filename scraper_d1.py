@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager  # Solución para automatizar el manejo de chromedriver
 import pandas as pd
 import time
 
@@ -15,9 +16,8 @@ options.add_argument("--disable-blink-features=AutomationControlled")
 options.add_argument("--ignore-certificate-errors")
 options.add_argument("--ignore-ssl-errors")
 
-# Ruta al chromedriver CORREGIDA
-service = Service("C:\\Users\\User\\Desktop\\Tesis\\Scripts de Python Olimpica\\chromedriver-win64\\chromedriver.exe")
-driver = webdriver.Chrome(service=service, options=options)
+# Utiliza webdriver-manager para obtener el chromedriver
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
 # URL de la página
 url = "https://productosbajocosto.com/lista-precios-productos-tiendas-d1/"
@@ -90,3 +90,4 @@ finally:
 df = pd.DataFrame(all_data)
 df.to_excel("productos_d1_tabla.xlsx", index=False)
 print("✅ Datos guardados en 'productos_d1_tabla.xlsx'")
+
